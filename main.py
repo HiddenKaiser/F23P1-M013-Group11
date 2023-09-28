@@ -30,6 +30,9 @@ def read_excel():
     char_bin = {}
     for i in range(len(df)):
         char = str(df['Characters'][i])
+        if char == '<space>':
+            char = ' '
+
         binary = expand_binary(df['Binary'][i])
         char_bin[char] = binary
         print(char, binary)
@@ -58,7 +61,10 @@ def text_to_binary(text):
         i += 1
     return binary
 
-binaryEncoded = text_to_binary("the quick brown fox jumps over the lazy dog.")
+#input_text = "the quick brown fox jumps over the lazy dog."
+input_text = "A robot may not injure a human being or, through inaction, allow a human being to come to harm. A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law. A robot must protect its own existence."
+
+binaryEncoded = text_to_binary(input_text)
 print(binaryEncoded)
 
 # shorts are 5 bits long, longs are 7 bits long, convert binary to text
