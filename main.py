@@ -65,12 +65,15 @@ print(binaryEncoded)
 def binary_to_text(binary):
     text = ""
     i = 0
+    keysList = list(char_table.keys()) # create a list of the keys
+    valList = list(char_table.values()) # create a list of the values
+
     while i < len(binary):
         if binary[i] == '0':
-            text += list(char_table.keys())[list(char_table.values()).index(binary[i:i+5])]
+            text += keysList[valList.index(binary[i:i+5])]
             i += 5
         else:
-            text += list(char_table.keys())[list(char_table.values()).index(binary[i:i+7])]
+            text += keysList[valList.index(binary[i:i+7])]
             i += 7
     return text
 
