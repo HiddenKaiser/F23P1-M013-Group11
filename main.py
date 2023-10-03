@@ -1,7 +1,9 @@
-# To Run: python p1.py
+# To Run: python main.py
 
+# Jack Keuler Tasks:
 # 1. Read characters and binary values from an Excel file
-# 2. Function to read binary values file and write text file
+# 2. Function to return binary value for a given string
+# 3. Function to return text string for a binary value
 
 import pandas as pd
 
@@ -33,7 +35,7 @@ def read_excel():
         if char == '<space>':
             char = ' '
 
-        binary = expand_binary(df['Binary'][i])
+        binary = expand_binary(df['Binary'][i]) # expand binary, because pandas reads the binary values as a number and gets rid of the trailing values
         char_bin[char] = binary
         print(char, binary)
     return char_bin
@@ -44,19 +46,20 @@ print("\n{")
 char_table = read_excel()
 print("}\n")
 
-# convert text to binary
-
+# convert a string to an encoded binary string
 def text_to_binary(text):
     binary = ""
     i = 0
     while i < (len(text)):
         key = text[i]
         while True:
+            # confirm that we can advance the index and that the key + the next character is in the table
             if i+1 < len(text) and (key + text[i+1]) in char_table:
                 i += 1
                 key = key + text[i]
             else:
                 break
+        # add the corresponding binary string to the encoded string
         binary += char_table[key]
         i += 1
     return binary
@@ -74,12 +77,13 @@ def binary_to_text(binary):
     keysList = list(char_table.keys()) # create a list of the keys
     valList = list(char_table.values()) # create a list of the values
 
+    # loop through the entire string of binary numbers
     while i < len(binary):
         if binary[i] == '0':
-            text += keysList[valList.index(binary[i:i+5])]
+            text += keysList[valList.index(binary[i:i+5])] # find the character that corresponds to the selected binary value
             i += 5
         else:
-            text += keysList[valList.index(binary[i:i+7])]
+            text += keysList[valList.index(binary[i:i+7])] # find the character that corresponds to the selected binary value
             i += 7
     return text
 
