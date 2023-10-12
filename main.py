@@ -65,10 +65,10 @@ def text_to_binary(text):
     return binary
 
 #input_text = "the quick brown fox jumps over the lazy dog."
-input_text = "A robot may not injure a human being or, through inaction, allow a human being to come to harm. A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law. A robot must protect its own existence."
+#input_text = "A robot may not injure a human being or, through inaction, allow a human being to come to harm. A robot must obey the orders given to it by human beings, except where such orders would conflict with the First Law. A robot must protect its own existence."
 
-binaryEncoded = text_to_binary(input_text)
-print(binaryEncoded)
+#binaryEncoded = text_to_binary(input_text)
+#print(binaryEncoded)
 
 # shorts are 5 bits long, longs are 7 bits long, convert binary to text
 def binary_to_text(binary):
@@ -87,11 +87,9 @@ def binary_to_text(binary):
             i += 7
     return text
 
-print(binary_to_text(binaryEncoded))
-
 # task 6
 # testing to see if the input text and output text are the same
-def task6(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") -> bool:
+def compare_results(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") -> bool:
     # opens both txt files
     f1 = open("TextInput.txt", "r")
     f2 = open("TextOutput.txt", "r")
@@ -112,3 +110,50 @@ def task6(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") 
     
     f1.close()
     f2.close()
+
+
+#Task 5
+#Leon Chen
+#This function should new text file called “TextOutput.txt” that contains the characters that correspond to the given file.
+
+def decode(fn="BinOutput.txt"):
+    f = open(fn, "r")
+    s = f.read()
+    f.close()
+
+    #print(s)
+    i = s.index(".")
+    s = s[i+1:]
+    #print(s)
+
+    charStr = binary_to_text(s)
+
+    f = open("TextOutput.txt", "w+")
+    f.write(charStr)
+    #print(charStr)
+    f.close()
+
+
+# Sahaj Soni Task 4:
+# Opens a file, reads the entire contents into a string, and closes the file
+def read_text_file(fn): 
+    f = open(fn) # open the text file for reading
+    s = f.read() # read the contents of the text file into a string variable 's'
+    f.close() # close the text file
+
+
+    binary = text_to_binary(s) # converts the text file into binary, and the binary result is stored in the variable 'binary'
+
+    numBits = len(binary) # calculate the number of bits in the binary representation
+    outputText = str(numBits) + "." + binary # the 'binary' data is converted to a string, followed by a period, and then followed by the binary value as a string
+    f = open("BinOutput.txt", "w+") # open or create a new text file called "BinOutput.txt" for writing
+    f.write(outputText) # write the concatenated binary data to the "BinOutput.txt" file
+    f.close() # close the "BinOutput.txt" file
+
+
+
+read_text_file("TextInput.txt") 
+
+decode("BinOutput.txt")
+
+print( compare_results() )
