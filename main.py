@@ -91,7 +91,11 @@ print(binary_to_text(binaryEncoded))
 
 # task 6
 # testing to see if the input text and output text are the same
+<<<<<<< Updated upstream
 def task6(TextInput: str, TextOutput: str = "TextOutput.txt") -> bool:
+=======
+def task6(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") -> bool:
+>>>>>>> Stashed changes
     # opens both txt files
     f1 = open("TextInput.txt", "r")
     f2 = open("TextOutput.txt", "r")
