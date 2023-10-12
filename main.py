@@ -87,10 +87,34 @@ def binary_to_text(binary):
             i += 7
     return text
 
+# task 6
+# testing to see if the input text and output text are the same
+def compare_results(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") -> bool:
+    # opens both txt files
+    f1 = open("TextInput.txt", "r")
+    f2 = open("TextOutput.txt", "r")
+    # giving variables to the read files
+    text1 = f1.read()
+    text2 = f2.read()
+
+    # checks to see if both texts are equal in length
+    if len(text1) != len(text2):
+        return False
+    else:
+        # loops over char in each string to check if they are the same
+        for index, char in enumerate(text1):
+            if text1[index] == text2[index]:
+                return True
+            else:
+                return False
+    
+    f1.close()
+    f2.close()
+
+
 #Task 5
 #Leon Chen
 #This function should new text file called “TextOutput.txt” that contains the characters that correspond to the given file.
-
 
 def decode(fn="BinOutput.txt"):
     f = open(fn, "r")
@@ -131,3 +155,5 @@ def read_text_file(fn):
 read_text_file("TextInput.txt") 
 
 decode("BinOutput.txt")
+
+print( compare_results() )
