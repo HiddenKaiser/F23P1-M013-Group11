@@ -88,3 +88,27 @@ def binary_to_text(binary):
     return text
 
 print(binary_to_text(binaryEncoded))
+
+# task 6
+# testing to see if the input text and output text are the same
+def task6(TextInput: str, TextOutput: str = "TextOutput.txt") -> bool:
+    # opens both txt files
+    f1 = open("TextInput.txt", "r")
+    f2 = open("TextOutput.txt", "r")
+    # giving variables to the read files
+    text1 = f1.read()
+    text2 = f2.read()
+
+    # checks to see if both texts are equal in length
+    if len(text1) != len(text2):
+        return False
+    else:
+        # loops over char in each string to check if they are the same
+        for index, char in enumerate(text1):
+            if text1[index] == text2[index]:
+                return True
+            else:
+                return False
+    
+    f1.close()
+    f2.close()
