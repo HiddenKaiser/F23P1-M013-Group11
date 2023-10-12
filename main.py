@@ -87,8 +87,6 @@ def binary_to_text(binary):
             i += 7
     return text
 
-print(binary_to_text(binaryEncoded))
-
 #Task 5
 #Leon Chen
 #This function should new text file called “TextOutput.txt” that contains the characters that correspond to the given file.
