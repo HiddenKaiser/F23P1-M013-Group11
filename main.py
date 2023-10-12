@@ -100,13 +100,13 @@ def read_text_file(fn):
     binary = text_to_binary(s) # converts the text file into binary, and the binary result is stored in the variable 'binary'
 
     numBits = len(binary) # calculate the number of bits in the binary representation
-    binary = str(binary) + "." + binary # the 'binary' data is converted to a string, followed by a period, and then followed by the binary value as a string
+    outputText = str(numBits) + "." + binary # the 'binary' data is converted to a string, followed by a period, and then followed by the binary value as a string
     f = open("BinOutput.txt", "w+") # open or create a new text file called "BinOutput.txt" for writing
-    f.write(binary) # write the concatenated binary data to the "BinOutput.txt" file
+    f.write(outputText) # write the concatenated binary data to the "BinOutput.txt" file
     f.close() # close the "BinOutput.txt" file
 
 
 
-# read_text_file("BinOutput.txt") 
+read_text_file("TextInput.txt") 
 
 #print(binary_to_text(binaryEncoded))
