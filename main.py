@@ -88,3 +88,28 @@ def binary_to_text(binary):
     return text
 
 print(binary_to_text(binaryEncoded))
+
+#Task 5
+#Leon Chen
+#This function should new text file called “TextOutput.txt” that contains the characters that correspond to the given file.
+
+
+def decode(fn="BinOutput.txt"):
+    f = open(fn, "r")
+    s = f.read()
+    f.close()
+
+    #print(s)
+    i = s.index(".")
+    s = s[i+1:]
+    #print(s)
+
+    charStr = ''
+    while(s != ''):
+        binVal, s = getFirstBin(s)
+        charStr = charStr + getChar(binVal)
+
+    f = open("TextOutput.txt", "w+")
+    f.write(charStr)
+    #print(charStr)
+    f.close()
