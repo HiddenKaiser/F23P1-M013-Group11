@@ -63,6 +63,10 @@ def text_to_binary(text):
             else:
                 break
         # add the corresponding binary string to the encoded string
+        # key = str(key)
+        if key == "\n":
+            key = "\\n"
+
         binary += char_table[key]
         i += 1
     return binary
@@ -84,6 +88,9 @@ def binary_to_text(binary):
         else:
             text += keysList[valList.index(binary[i:i+7])] # find the character that corresponds to the selected binary value
             i += 7
+
+    text = text.replace("\\n", "\n")
+
     return text
 
 
