@@ -9,6 +9,7 @@ import pandas as pd
 
 # Read Excel file
 df = pd.read_excel('BinaryDefinitions.xlsx')
+sf = pd.read_excel('ShortcutDefinitions.xlsx')
 
 # print out all the contents of the excel file
 print(df)
@@ -18,6 +19,43 @@ print(df)
 # store character = binary value in a dictionary
 # store and read binary value as a string
 
+def read_shortcut_table():
+    char_bin = {}
+    for i in range(len(sf)):
+        char = str(sf['Character'][i])
+        repString = sf['String'][i]
+
+        repString = " " + repString + " "
+        if repString[len(repString)-2] == "/":
+            repString = repString.replace("/ ", "")
+
+        char_bin[char] = repString
+        
+    return char_bin
+
+
+shortcuts = read_shortcut_table()
+
+# idea, use shortcut character (::shortcut) and then a lower/uppercase letter to indicate the word it indicates
+def encode_text(text):
+    for key in shortcuts:
+        repString = shortcuts[key]
+        shortcutStr = "::shortcut" + str(key)
+        text = text.replace(repString, shortcutStr)
+
+    f = open("EncodedText.txt", "w+") # open or create a new text file called "BinOutput.txt" for writing
+    f.write(text) # write the concatenated binary data to the "BinOutput.txt" file
+    f.close() # close the "BinOutput.txt" file
+
+    return text
+
+def decode_text(text):
+    for key in shortcuts:
+        repString = shortcuts[key]
+        shortcutStr = "::shortcut" + str(key)
+        text = text.replace(shortcutStr, repString)
+    return text
+    
 
 # Jack Keuler Task 1:
 # expand_binary takes a number, we store the characters as either a short 5 bit binary or a long 7 bit binary
@@ -47,28 +85,49 @@ def read_excel():
 # read the table and put it in a dictionary. (Also prints out the values)
 char_table = read_excel()
 
+def isApartOfCharTable(unfinishedKey):
+    if unfinishedKey in char_table:
+        return True
+    
+    for charKey in char_table:
+        if charKey.find(unfinishedKey) >= 0:
+            return True
+    return False
+
 # Jack Keuler Task 2:
 # Function to return binary value for a given string
 # convert a string to an encoded binary string
+
 def text_to_binary(text):
+    text = encode_text(text)
+
     binary = ""
     i = 0
+
+    shortcutNum = 0
+
     while i < (len(text)):
         key = text[i]
-        while True:
-            # confirm that we can advance the index and that the key + the next character is in the table
-            if i+1 < len(text) and (key + text[i+1]) in char_table:
-                i += 1
-                key = key + text[i]
-            else:
-                break
-        # add the corresponding binary string to the encoded string
-        # key = str(key)
+        highestLength = 0
+        for charKey in char_table:
+            length = len(charKey)
+            if length > highestLength and text.find(charKey, i, i+length) >= 0:
+                highestLength = length
+                key = charKey
+                i = i + length - 1
+
         if key == "\n":
             key = "\\n"
 
+        if key == "::shortcut":
+            shortcutNum += 1
+            #print("Shortcut found")
+
         binary += char_table[key]
         i += 1
+    
+    print(str(shortcutNum) + " shortcuts found!")
+
     return binary
 
 # Jack Keuler Task 3:
@@ -90,6 +149,7 @@ def binary_to_text(binary):
             i += 7
 
     text = text.replace("\\n", "\n")
+    text = decode_text(text)
 
     return text
 
@@ -109,6 +169,8 @@ def read_text_file(fn):
     f = open("BinOutput.txt", "w+") # open or create a new text file called "BinOutput.txt" for writing
     f.write(outputText) # write the concatenated binary data to the "BinOutput.txt" file
     f.close() # close the "BinOutput.txt" file
+
+    print("Took " + str(numBits) + " bits to represent the text file")
 
 
 #Task 5
@@ -160,4 +222,4 @@ read_text_file("TextInput.txt")
 
 decode("BinOutput.txt")
 
-print( compare_results() )
+print( "Strings Match: " + str(compare_results()) )
