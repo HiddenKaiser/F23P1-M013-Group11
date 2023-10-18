@@ -8,8 +8,8 @@
 import pandas as pd
 
 # Read Excel file
-df = pd.read_excel('F23P1-M013-Group11.xlsx')
-#sf = pd.read_excel('ShortcutDefinitions.xlsx')
+df = pd.read_excel('BinaryDefinitions.xlsx')
+sf = pd.read_excel('ShortcutDefinitions.xlsx')
 
 # print out all the contents of the excel file
 print(df)
@@ -19,10 +19,8 @@ print(df)
 # store character = binary value in a dictionary
 # store and read binary value as a string
 
-'''
 def read_shortcut_table():
     char_bin = {}
-    print("{")
     for i in range(len(sf)):
         char = str(sf['Character'][i])
         repString = sf['String'][i]
@@ -32,41 +30,11 @@ def read_shortcut_table():
             repString = repString.replace("/ ", "")
 
         char_bin[char] = repString
-        print("\"" + char + "\": \"" + repString + "\",")
         
-    print("}")
     return char_bin
-'''
 
 
-shortcuts = {
-    "a": " all ",
-    "b": " which ",
-    "c": " will ",
-    "d": " where ",
-    "e": " when ",
-    "f": " who ",
-    "g": " have ",
-    "h": " they ",
-    "i": " from ",
-    "j": " whose ",
-    "k": " because ",
-    "l": " very ",
-    "m": " that ",
-    "n": " for ",
-    "o": " not ",
-    "p": " great ",
-    "q": " with ",
-    "r": " some ",
-    "s": " in a ",
-    "t": " but ",
-    "u": " more ",
-    "v": " behind ",
-    "w": " our ",
-    "x": " and the",
-    "y": " because ",
-    "z": " just "
-}
+shortcuts = read_shortcut_table()
 
 # idea, use shortcut character (::shortcut) and then a lower/uppercase letter to indicate the word it indicates
 def encode_text(text):
