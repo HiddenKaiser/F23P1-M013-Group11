@@ -229,8 +229,8 @@ def decode(fn="BinOutput.txt"):
 # testing to see if the input text and output text are the same
 def compare_results(TextInput: str = "TextInput.txt", TextOutput: str = "TextOutput.txt") -> bool:
     # opens both txt files
-    f1 = open("TextInput.txt", "r")
-    f2 = open("TextOutput.txt", "r")
+    f1 = open(TextInput, "r")
+    f2 = open(TextOutput, "r")
     # giving variables to the read files
     text1 = f1.read()
     text2 = f2.read()
